@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Snake</title>
+    <style>
+      body {
+        margin: 0;
+        background: #111;
+        color: #eee;
+        font-family: system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      h1 {
+        margin: 12px 0;
+        font-weight: 500;
+        letter-spacing: 2px;
+      }
+      #score {
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+      canvas {
+        background: #000;
+        border: 1px solid #333;
+        image-rendering: pixelated;
+      }
+      #hint {
+        margin-top: 10px;
+        opacity: 0.6;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SNAKE</h1>
+    <div id="score">Score: 0</div>
+    <canvas id="game" width="400" height="400"></canvas>
+    <div id="hint">Arrow keys to move · R to restart</div>
+    <script src="snake.js"></script>
+  </body>
+</html>
