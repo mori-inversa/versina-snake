@@ -80,11 +80,11 @@ function draw() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // food
-  ctx.fillStyle = "#e74c3c";
+  ctx.fillStyle = "#ebfc72";
   ctx.fillRect(food.x * CELL, food.y * CELL, CELL, CELL);
 
   // snake
-  ctx.fillStyle = "#8e44ad";
+  ctx.fillStyle = "#c084fc";
   for (const s of snake) {
     ctx.fillRect(s.x * CELL, s.y * CELL, CELL, CELL);
   }
@@ -92,11 +92,11 @@ function draw() {
   if (!alive) {
     ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#fff";
-    ctx.font = "28px system-ui, sans-serif";
+    ctx.fillStyle = "#f4f3e8";
+    ctx.font = "28px 'JetBrains Mono', monospace";
     ctx.textAlign = "center";
     ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2 - 6);
-    ctx.font = "14px system-ui, sans-serif";
+    ctx.font = "14px 'JetBrains Mono', monospace";
     ctx.fillText("Press R to restart", canvas.width / 2, canvas.height / 2 + 20);
   }
 }
