@@ -1,5 +1,7 @@
 # Snake
 
+https://mori-inversa.github.io/versina-snake/
+
 A tiny HTML5 canvas Snake game. Zero dependencies — open `index.html` in a browser.
 
 ## Run
