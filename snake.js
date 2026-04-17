@@ -111,10 +111,12 @@ function draw() {
   ctx.fillStyle = "#ebfc72";
   ctx.fillRect(food.x * CELL, food.y * CELL, CELL, CELL);
 
-  // snake
-  ctx.fillStyle = "#c084fc";
-  for (const s of snake) {
-    ctx.fillRect(s.x * CELL, s.y * CELL, CELL, CELL);
+  // snake — gradient from green (head) to purple (tail)
+  for (let i = 0; i < snake.length; i++) {
+    const t = snake.length === 1 ? 0 : i / (snake.length - 1);
+    const hue = 120 + t * 150;
+    ctx.fillStyle = `hsl(${hue}, 85%, 60%)`;
+    ctx.fillRect(snake[i].x * CELL, snake[i].y * CELL, CELL, CELL);
   }
 
   if (!alive) {
