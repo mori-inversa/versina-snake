@@ -1,21 +1,34 @@
 // Simple canvas snake game.
-// Grid of GRID x GRID cells, each CELL px.
+// Grid of COLS x ROWS cells, each CELL px. Fills the viewport.
 
 const CELL = 20;
-const GRID = 20;
 const TICK_MS = 120;
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const scoreEl = document.getElementById("score");
 
+let COLS, ROWS;
 let snake, dir, pendingDir, food, score, alive, timer;
 
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  COLS = Math.floor(canvas.width / CELL);
+  ROWS = Math.floor(canvas.height / CELL);
+}
+
 function reset() {
+  resize();
+  const cx = Math.floor(COLS / 2);
+  const cy = Math.floor(ROWS / 2);
   snake = [
-    { x: 10, y: 10 },
-    { x: 9, y: 10 },
-    { x: 8, y: 10 },
+    { x: cx,     y: cy },
+    { x: cx - 1, y: cy },
+    { x: cx - 2, y: cy },
+    { x: cx - 3, y: cy },
+    { x: cx - 4, y: cy },
+    { x: cx - 5, y: cy },
   ];
   dir = { x: 1, y: 0 };
   pendingDir = dir;
@@ -28,8 +41,8 @@ function reset() {
 function placeFood() {
   while (true) {
     const f = {
-      x: Math.floor(Math.random() * GRID),
-      y: Math.floor(Math.random() * GRID),
+      x: Math.floor(Math.random() * COLS),
+      y: Math.floor(Math.random() * ROWS),
     };
     if (!snake.some((s) => s.x === f.x && s.y === f.y)) {
       food = f;
@@ -49,7 +62,7 @@ function step() {
   const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
   // Wall collision
-  if (head.x < 0 || head.x >= GRID || head.y < 0 || head.y >= GRID) {
+  if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) {
     alive = false;
     draw();
     return;
@@ -76,8 +89,23 @@ function step() {
 }
 
 function draw() {
-  ctx.fillStyle = "#000";
+  // Inversa green background
+  ctx.fillStyle = "#13140e";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Subtle grid pattern
+  ctx.beginPath();
+  ctx.strokeStyle = "rgba(235, 252, 114, 0.07)";
+  ctx.lineWidth = 1;
+  for (let x = 0; x <= COLS; x++) {
+    ctx.moveTo(x * CELL + 0.5, 0);
+    ctx.lineTo(x * CELL + 0.5, ROWS * CELL);
+  }
+  for (let y = 0; y <= ROWS; y++) {
+    ctx.moveTo(0, y * CELL + 0.5);
+    ctx.lineTo(COLS * CELL, y * CELL + 0.5);
+  }
+  ctx.stroke();
 
   // food
   ctx.fillStyle = "#ebfc72";
@@ -120,6 +148,13 @@ window.addEventListener("keydown", (e) => {
       reset();
       break;
   }
+});
+
+window.addEventListener("resize", () => {
+  clearInterval(timer);
+  reset();
+  draw();
+  timer = setInterval(step, TICK_MS);
 });
 
 reset();
