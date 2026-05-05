@@ -109,7 +109,9 @@ function draw() {
 
   // food
   ctx.fillStyle = "#ebfc72";
-  ctx.fillRect(food.x * CELL, food.y * CELL, CELL, CELL);
+  ctx.beginPath();
+  ctx.arc(food.x * CELL + CELL / 2, food.y * CELL + CELL / 2, CELL / 2, 0, Math.PI * 2);
+  ctx.fill();
 
   // snake — gradient from lilac (head) to lavender (tail)
   for (let i = 0; i < snake.length; i++) {
