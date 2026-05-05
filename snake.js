@@ -93,19 +93,15 @@ function draw() {
   ctx.fillStyle = "#13140e";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Subtle grid pattern
-  ctx.beginPath();
-  ctx.strokeStyle = "rgba(235, 252, 114, 0.07)";
-  ctx.lineWidth = 1;
+  // Subtle grid pattern (dots at intersections)
+  ctx.fillStyle = "rgba(235, 252, 114, 0.07)";
   for (let x = 0; x <= COLS; x++) {
-    ctx.moveTo(x * CELL + 0.5, 0);
-    ctx.lineTo(x * CELL + 0.5, ROWS * CELL);
+    for (let y = 0; y <= ROWS; y++) {
+      ctx.beginPath();
+      ctx.arc(x * CELL, y * CELL, 1, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
-  for (let y = 0; y <= ROWS; y++) {
-    ctx.moveTo(0, y * CELL + 0.5);
-    ctx.lineTo(COLS * CELL, y * CELL + 0.5);
-  }
-  ctx.stroke();
 
   // food
   ctx.fillStyle = "#ebfc72";
